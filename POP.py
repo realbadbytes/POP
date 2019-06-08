@@ -1,9 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 from parser import Program, Operation
+from pipeline import Pipeline
 
 ASM = """LOAD .stack, i10
-LOAD .stack, i10
 POP .gp0
 POP .gp1
 ADD .gp1, .gp2
@@ -12,7 +12,9 @@ LOAD .stack, .gp1"""
 
 def main():
 
-    p = Program(ASM)
+    program = Program(ASM)
+    pipeline = Pipeline(program)
+    pipeline.generate_timing()
 
 if __name__ == '__main__':
     main()
