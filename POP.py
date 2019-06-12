@@ -4,8 +4,10 @@ from parser import Program, Operation
 from pipeline import Pipeline
 
 ASM = """LOAD .stack, i10
+XOR .gp4, i300
 POP .gp0
 POP .gp1
+JUMP m40
 LOAD .gp1, .stack
 ADD .gp1, .gp2
 ADD .gp3, .gp4

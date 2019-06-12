@@ -50,7 +50,6 @@ class Pipeline():
             if (len(op1) == 3):
                 if ((op1.values[1][:3] == '.gp' or op1.values[1][0] == 'i') and 
                         (op1.values[2][:3] == '.gp' or op1.values[2][0] == 'i')):
-                    print(1)
                     return
 
             # handle safe cases where all operands are either regs or immediates in second operation
@@ -58,11 +57,10 @@ class Pipeline():
             if (len(op2) == 3):
                 if ((op2.values[1][:3] == '.gp' or op2.values[1][0] == 'i') and 
                         (op2.values[2][:3] == '.gp' or op2.values[2][0] == 'i')):
-                    print(3)
                     return
 
             # there is a memory hazard otherwise
-            print ('\n\t ***** structural hazard between instruction {} and {}'.format(index, index+1))
+            print ('\n\t ***** structural hazard (memory bus) between instruction {} and {}'.format(index, index+1))
 
 
         except IndexError:
@@ -71,9 +69,9 @@ class Pipeline():
     def generate_timing(self):
         print ('\n[+] generating timing chart')
         for i in range(len(self.program)):
+            print("\n#############################")
             data_hazards = self.detect_data_hazards(i)
             structural_hazards = self.detect_structural_hazards(i)
-
 
 
 
