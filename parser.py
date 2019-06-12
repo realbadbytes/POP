@@ -35,5 +35,8 @@ class Operation:
     def __repr__(self):
         return '{}'.format(self.values)
 
+    def __len__(self):
+        return len(self.values)
+
 
 

@@ -24,10 +24,16 @@ class Pipeline():
         try:
             op1 = self.program.operations[index]
             op2 = self.program.operations[index+1]
-            print ('[+] checking data hazard for\n {} and \n{}'.format(op1, op2))
+            print ('\n[+] checking data hazard for\n {} and \n{}'.format(op1, op2))
 
-            if (op1.values[1] == op2.values[1]):
-                print ('\n[!] data hazard between instruction {} and {}\n'.format(index, index+1))
+            # detect operator 1 being operator 1 in previous instruction
+            if ( (op1.values[1] == op2.values[1]) and (op2.values[0] not in ['LOAD', 'POP']) ):
+                print ('\n[!] data hazard between instruction {} and {}'.format(index, index+1))
+
+            # detect operator 2 being operator 1 from previous instruction
+            if (len(op2) == 3):
+                if (op1.values[1] == op2.values[2]):
+                    print ('\n[!] data hazard between instruction {} and {}\n'.format(index, index+1))
 
         except IndexError:
             pass
@@ -35,8 +41,7 @@ class Pipeline():
     def generate_timing(self):
         print ('\n[+] generating timing chart')
         for i in range(len(self.program)):
-            print ('[+] processing instruction {}: {}'.format(i, self.program.operations[i]))
-            hazard = self.detect_data_hazards(i)
+            hazards = self.detect_data_hazards(i)
 
 
 
